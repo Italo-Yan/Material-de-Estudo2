@@ -19,18 +19,18 @@ const routes = require('./routes')
 const path = require('path');
 const helmet = require('helmet');
 const csrf = require('csurf');
-const {meuMiddleware, checkCsrfError} = require('./src/middlewares/middleware');
-const csurf = require('csurf');
+const meuMiddleware = require('./src/middlewares/middleware');
+const checkCsrfError = require('./src/middlewares/middleware');
 
 app.use(helmet());
-app.use(express.urlencoded({ extended:true }));
+app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.resolve(__dirname, 'public')));
 
 const sessionOptions = session({
     secret: 'akshfiuahufihaisjkbuuiq safiahsif isajdas dasdasd asdasd()',
-//  store: new MongoStore({ mongooseConnection: mongoose.connection }),
     resave: false,
     saveUninitialized: false,
+    csrfToken: false,
     cookie: {
         maxAge: 1000 * 60 * 60 * 24 * 7,
         httpOnly: true
