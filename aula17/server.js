@@ -4,7 +4,7 @@ const app = express(); // Cria uma instância do aplicativo express
 const mongoose = require('mongoose'); // Importa o pacote mongoose para interagir com o MongoDB
 
     // Conecta-se ao banco de dados MongoDB usando a CONNECTIONSTRING definida no .env
-mongoose.connect(process.env.CONNECTIONSTRING)
+mongoose.connect(process.env.CONNECTIONSTRING, {useNewUrlParser: true, useUnifiedTopology: true})
     .then(() => {
         app.emit('pronto'); // Quando a conexão com o banco de dados é estabelecida com sucesso, emite o evento 'pronto' para iniciar o servidor
     })
@@ -18,7 +18,7 @@ const routes = require('./routes')              // Definide rotas no arquivo rou
 const path = require('path');                   // Lida com caminhos de arquivos e diretórios
 const helmet = require('helmet');               // melhora a segurança do site/aplicativo
 const csrf = require('csrf');                   // Protege contra ataques CSRF
-const { middlewareGlobal, checkCsrfError, csrfMiddleware } = require('./src/middlewares/middleware');   // Importa os middlewares personalizados definidos em middleware.js
+const { middlewareGlobal, checkCsrfError, csrfMiddelware } = require('./src/middlewares/middleware');   // Importa os middlewares personalizados definidos em middleware.js
 
 app.use(helmet()); // Aplica o middleware helmet para adicionar medidas de segurança ao site/aplicativo
 
@@ -41,15 +41,15 @@ const sessionOptions = session ({
 app.use(sessionOptions);    // Aplica o middleware express-session com as opções definidas anteriormente
 app.use(flash());           // Aplica o middleware connect-flash para exibir mensagens flash na aplicação
 
-app.set('views', path.join(__dirname, 'src', 'views')); // Define o diretório de visualizações (views) do aplicativo como 'src/views'
-app.set('view engine', 'ejs');                             // Define o mecanismo de visualização como EJS para renderizar as visualizações
+app.set('views', path.join(__dirname, 'src', 'views'));         // Define o diretório de visualizações (views) do aplicativo como 'src/views'
+app.set('view engine', 'ejs');                                  // Define o mecanismo de visualização como EJS para renderizar as visualizações
 
-//app.use(csrf());                                           // Aplica o middleware csrf para adicionar proteção contra ataques CSRF
+//app.use(csrf());                                              // Aplica o middleware csrf para adicionar proteção contra ataques CSRF
 
-    // Aplica os middlewares personalizados definidos em middleware.js
+// Aplica os middlewares personalizados definidos em middleware.js
 app.use(middlewareGlobal);
 app.use(checkCsrfError);
-//app.use(csrfMiddleware);
+//app.use(csrfMiddelware);
 app.use(routes);
 
 // Quando o evento personalizado 'pronto' é emitido (após a conexão com o banco de dados), inicia o servidor na porta 3000
