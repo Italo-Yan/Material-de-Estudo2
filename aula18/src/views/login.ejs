@@ -9,6 +9,8 @@
       <h1 class=" text-center">Criar conta ou Entrar</h1>
       <p class="text-center lead">Faça login ou crie sua conta abaixo</p>
 
+      <%- include('includes/messages'); %>
+
       <div class="row">
 
         <div class="col-lg">
@@ -16,6 +18,7 @@
           <p>Se você ainda não tem conta, preencha o formulãrio abaixo:</p>
 
           <form action="/login/register" method="POST">
+            <input type="hidden" name="_csrf" value=<%=csrfToken%>>
             <div class="form-group">
               <label>Seu e-mail</label>
               <input type="email" class="form-control" name="email">
@@ -34,6 +37,7 @@
           <p>Se você já tem uma conta, faça login abaixo:</p>
 
           <form action="/login/login" method="POST">
+            <input type="hidden" name="_csrf" value=<%=csrfToken%>>
             <div class="form-group">
               <label>Seu e-mail</label>
               <input type="email" class="form-control" name="email">
