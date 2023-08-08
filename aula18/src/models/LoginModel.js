@@ -78,5 +78,3 @@ class Login {
 }
 
 module.exports = Login;
-
-aaaaaaa
