@@ -1,7 +1,9 @@
-const Contato = require('../models/contatoModel');
+const Contato = require('../models/ContatoModel');
 
 exports.index = (req, res) => {
-    res.render('contato');
+    res.render('contato', {
+        contato: {}
+    });
 };
 
 exports.register = async (req, res) => {
@@ -9,14 +11,14 @@ exports.register = async (req, res) => {
         const contato = new Contato(req.body);
         await contato.register();
 
-        if(contato.errors.length >0) {
+        if(contato.errors.length > 0) {
             req.flash('errors', contato.errors);
-            req.session.save(() => req.redirect('back'));
+            req.session.save(() => res.redirect('back')); 
             return;
         }
 
-        req.flash('success', contato.success );
-        req.session.save(() => req.redirect('back'));
+        req.flash('success', contato.success); 
+        req.session.save(() => res.redirect('back')); 
         return;
     } catch(e) {
         console.log(e);
