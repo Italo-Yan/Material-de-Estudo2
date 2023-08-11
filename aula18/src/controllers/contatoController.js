@@ -17,7 +17,7 @@ exports.register = async (req, res) => {
             return;
         }
 
-        req.flash('success', contato.success); 
+        req.flash('success', 'Contato registrado com sucesso.'); 
         req.session.save(() => res.redirect('back')); 
         return;
     } catch(e) {
