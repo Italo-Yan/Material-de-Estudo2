@@ -41,7 +41,7 @@ Contato.prototype.cleanUp = function() {
     }
 
     this.body = {
-        nome: this.body.nome, // Corrigido para 'nome'
+        nome: this.body.nome,
         sobrenome: this.body.sobrenome,
         email: this.body.email,
         telefone: this.body.telefone,
